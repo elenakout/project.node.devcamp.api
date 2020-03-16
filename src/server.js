@@ -12,7 +12,7 @@ dotenv.config({ path: './config/config.env' });
 connectDB();
 
 // Routes
-const bootcamps = require('./api/v1/bootcambs');
+const bootcamps = require('./api/v1/bootcamps');
 
 const app = express();
 
