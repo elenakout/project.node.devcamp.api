@@ -102,12 +102,29 @@ exports.deleteBootcamp = async (req, res, next) => {
 // @desc      Get bootcamps within a radius
 // @route     GET /api/v1/bootcamps/radius/:zipcode/:diastance
 // @access    Private
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 exports.getBootcampsInRadius = async (req, res, next) => {
   try {
     const { zipcode, distance } = req.params;
 
     // Get lat/lng from geocoder
-    const loc = await geocoder.geocode(zipcode);
+    const loc = await geocoder.geocode(zipcode);0
     console.log(loc);
 
     const lat = parseFloat(loc[0].latitude);
