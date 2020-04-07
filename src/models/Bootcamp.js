@@ -48,7 +48,6 @@ const BootcampSchema = new mongoose.Schema(
       coordinates: {
         type: [Number],
         index: '2dsphere',
-        x,
       },
       formattedAddress: String,
       street: String,
@@ -108,13 +107,13 @@ const BootcampSchema = new mongoose.Schema(
 );
 
 // Create bootcmap slug from the name
-BootcampSchema.pre('save', function(next) {
+BootcampSchema.pre('save', function (next) {
   this.slug = slugify(this.name, { lower: true });
   next();
 });
 
 // Geocode & create location field
-BootcampSchema.pre('save', async function(next) {
+BootcampSchema.pre('save', async function (next) {
   const loc = await geocoder.geocode(this.address);
   this.location = {
     type: 'Point',

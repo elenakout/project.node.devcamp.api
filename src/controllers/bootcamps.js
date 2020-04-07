@@ -7,7 +7,18 @@ const Bootcamp = require('../models/Bootcamp');
 // @access  Public
 exports.getBootcamps = async (req, res, next) => {
   try {
-    const bootcamps = await Bootcamp.find();
+    let query;
+
+    let queryStr = JSON.stringify(req.query);
+
+    queryStr = queryStr.replace(
+      /\b(gt|gte|lt|lte|in)\b/g,
+      (match) => `$${match}`
+    );
+
+    query = Bootcamp.find(JSON.parse(queryStr));
+
+    const bootcamps = await query;
 
     res.status(201).json({
       success: true,
@@ -103,28 +114,13 @@ exports.deleteBootcamp = async (req, res, next) => {
 // @route     GET /api/v1/bootcamps/radius/:zipcode/:diastance
 // @access    Private
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 exports.getBootcampsInRadius = async (req, res, next) => {
   try {
     const { zipcode, distance } = req.params;
 
     // Get lat/lng from geocoder
-    const loc = await geocoder.geocode(zipcode);0
+    const loc = await geocoder.geocode(zipcode);
+    0;
     console.log(loc);
 
     const lat = parseFloat(loc[0].latitude);
