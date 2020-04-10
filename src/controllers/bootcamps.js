@@ -19,7 +19,7 @@ exports.getBootcamps = async (req, res, next) => {
     removeFields.forEach((param) => delete reqQuery[param]);
 
     // Create query string
-    let queryStr = JSON.stringify(req.query);
+    let queryStr = JSON.stringify(reqQuery);
 
     // Create operators ($gt,&gte ect )
     queryStr = queryStr.replace(
@@ -27,8 +27,15 @@ exports.getBootcamps = async (req, res, next) => {
       (match) => `$${match}`
     );
 
-    // Finding resourse
+    // Finding resource
     query = Bootcamp.find(JSON.parse(queryStr));
+
+    // Select Fields
+    if (req.query.select) {
+      const fields = req.query.select.split(',').join(' ');
+
+      query = query.select(fields);
+    }
 
     // Executing query
     const bootcamps = await query;
