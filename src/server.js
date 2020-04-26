@@ -12,7 +12,8 @@ dotenv.config({ path: './config/config.env' });
 connectDB();
 
 // Routes
-const bootcamps = require('./api/v1/bootcamps');
+const bootcamps = require('./routes/bootcamps');
+const courses = require('./routes/courses');
 
 const app = express();
 
@@ -25,11 +26,13 @@ if (process.env.NODE_ENV === 'development') {
 }
 app.get('/', (req, res) => {
   res.json({
-    message: 'hello world'
+    message: 'hello world',
   });
 });
 
+// Mount routers
 app.use('/api/v1/bootcamps', bootcamps);
+app.use('/api/v1/courses', courses);
 
 // Error handler Middleware
 app.use(errorHandler);
