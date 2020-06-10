@@ -17,6 +17,14 @@ mongoose.connect(process.env.MONGO_URI, {
   useUnifiedTopology: true,
 });
 
+// // Connect to DB
+// mongoose.connect(process.env.LOCAL_MONGO, {
+//   useNewUrlParser: true,
+//   useCreateIndex: true,
+//   useFindAndModify: false,
+//   useUnifiedTopology: true,
+// });
+
 // Read JSON files
 const bootcamps = JSON.parse(
   fs.readFileSync(`${__dirname}/src/_data/bootcamps.json`, 'utf-8')
@@ -30,7 +38,7 @@ const courses = JSON.parse(
 const importData = async () => {
   try {
     await Bootcamp.create(bootcamps);
-    // await Course.create(courses);
+    await Course.create(courses);
 
     console.log('Data Imported...');
     process.exit();
