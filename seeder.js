@@ -8,6 +8,7 @@ dotenv.config({ path: './config/config.env' });
 // Load models
 const Bootcamp = require('./src/models/Bootcamp');
 const Course = require('./src/models/Course');
+const User = require('./src/models/User');
 
 // Connect to DB
 mongoose.connect(process.env.MONGO_URI, {
@@ -17,7 +18,7 @@ mongoose.connect(process.env.MONGO_URI, {
   useUnifiedTopology: true,
 });
 
-// // Connect to DB
+// // Connect to Local DB
 // mongoose.connect(process.env.LOCAL_MONGO, {
 //   useNewUrlParser: true,
 //   useCreateIndex: true,
@@ -33,12 +34,16 @@ const bootcamps = JSON.parse(
 const courses = JSON.parse(
   fs.readFileSync(`${__dirname}/src/_data/courses.json`, 'utf-8')
 );
+const users = JSON.parse(
+  fs.readFileSync(`${__dirname}/src/_data/users.json`, 'utf-8')
+);
 
 // Import into DB
 const importData = async () => {
   try {
     await Bootcamp.create(bootcamps);
     await Course.create(courses);
+    await User.create(users);
 
     console.log('Data Imported...');
     process.exit();
@@ -52,6 +57,7 @@ const deleteData = async () => {
   try {
     await Bootcamp.deleteMany();
     await Course.deleteMany();
+    await User.deleteMany();
 
     console.log('Data Destroyed...');
     process.exit();
