@@ -7,12 +7,12 @@ const {
   deleteCourse,
 } = require('../controllers/courses');
 
-// Advanced Results
 const Course = require('../models/Course');
-const advancedResults = require('../middleware/advancedResults');
 
 const router = Router({ mergeParams: true });
 
+// Advanced Results
+const advancedResults = require('../middleware/advancedResults');
 const { protect, authorize } = require('../middleware/auth');
 
 router
