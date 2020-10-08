@@ -1,15 +1,15 @@
-const { Router } = require('express');
+const express = require('express');
 const {
   getUsers,
   getUser,
   createUser,
   updateUser,
-  deleteUser,
+  deleteUser
 } = require('../controllers/users');
 
 const User = require('../models/User');
 
-const router = Router({ mergeParams: true });
+const router = express.Router({ mergeParams: true });
 
 const advancedResults = require('../middleware/advancedResults');
 const { protect, authorize } = require('../middleware/auth');

@@ -1,17 +1,16 @@
-const { Router } = require('express');
+const express = require('express');
 const {
   getCourses,
   getCourse,
   addCourse,
   updateCourse,
-  deleteCourse,
+  deleteCourse
 } = require('../controllers/courses');
 
 const Course = require('../models/Course');
 
-const router = Router({ mergeParams: true });
+const router = express.Router({ mergeParams: true });
 
-// Advanced Results
 const advancedResults = require('../middleware/advancedResults');
 const { protect, authorize } = require('../middleware/auth');
 
@@ -20,7 +19,7 @@ router
   .get(
     advancedResults(Course, {
       path: 'bootcamp',
-      select: 'name description',
+      select: 'name description'
     }),
     getCourses
   )

@@ -1,4 +1,4 @@
-const { Router } = require('express');
+const express = require('express');
 const {
   getBootcamps,
   getBootcamp,
@@ -6,7 +6,7 @@ const {
   updateBootcamp,
   deleteBootcamp,
   getBootcampsInRadius,
-  bootcampPhotoUpload,
+  bootcampPhotoUpload
 } = require('../controllers/bootcamps');
 
 const Bootcamp = require('../models/Bootcamp');
@@ -15,7 +15,7 @@ const Bootcamp = require('../models/Bootcamp');
 const courseRouter = require('./courses');
 const reviewRouter = require('./reviews');
 
-const router = Router();
+const router = express.Router();
 
 const advancedResults = require('../middleware/advancedResults');
 const { protect, authorize } = require('../middleware/auth');

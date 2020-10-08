@@ -8,16 +8,13 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   const removeFields = ['select', 'sort', 'page', 'limit'];
 
   // Loop over removeFields and delete them from reqQuery
-  removeFields.forEach((param) => delete reqQuery[param]);
+  removeFields.forEach(param => delete reqQuery[param]);
 
   // Create query string
   let queryStr = JSON.stringify(reqQuery);
 
-  // Create operators ($gt,&gte ect )
-  queryStr = queryStr.replace(
-    /\b(gt|gte|lt|lte|in)\b/g,
-    (match) => `$${match}`
-  );
+  // Create operators ($gt, $gte, etc)
+  queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
 
   // Finding resource
   query = model.find(JSON.parse(queryStr));
@@ -45,7 +42,6 @@ const advancedResults = (model, populate) => async (req, res, next) => {
 
   query = query.skip(startIndex).limit(limit);
 
-  // Populate
   if (populate) {
     query = query.populate(populate);
   }
@@ -59,14 +55,14 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   if (endIndex < total) {
     pagination.next = {
       page: page + 1,
-      limit,
+      limit
     };
   }
 
   if (startIndex > 0) {
     pagination.prev = {
       page: page - 1,
-      limit,
+      limit
     };
   }
 
@@ -74,7 +70,7 @@ const advancedResults = (model, populate) => async (req, res, next) => {
     success: true,
     count: results.length,
     pagination,
-    data: results,
+    data: results
   };
 
   next();
